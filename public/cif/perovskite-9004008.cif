@@ -1,0 +1,59 @@
+data_9004008
+_chemical_name 'MgSiO3'
+loop_
+_publ_author_name
+'Sugahara M'
+'Yoshiasa A'
+'Komatsu Y'
+'Yamanaka T'
+'Bolfan-Casanova N'
+'Nakastuka A'
+'Sasaki S'
+'Tanaka M'
+_journal_name_full "American Mineralogist"
+_journal_volume 91
+_journal_year 2006
+_journal_page_first 533
+_journal_page_last 536
+_publ_section_title
+;
+ Reinvestigation of the MgSiO3 perovskite structure at high pressure
+ Locality: synthetic
+ Sample: P = 15.0 GPa
+;
+_chemical_formula_sum 'Mg Si O3'
+_cell_length_a 4.701
+_cell_length_b 4.870
+_cell_length_c 6.782
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 155.266
+_symmetry_space_group_name_H-M 'P b n m'
+loop_
+_symmetry_equiv_pos_as_xyz
+  'x,y,z'
+  'x,y,1/2-z'
+  '-x,-y,1/2+z'
+  '1/2+x,1/2-y,1/2+z'
+  '1/2-x,1/2+y,1/2-z'
+  '1/2-x,1/2+y,z'
+  '1/2+x,1/2-y,-z'
+  '-x,-y,-z'
+loop_
+_atom_type_symbol
+_atom_type_oxidation_number
+  Si4+   4.000
+  O2-   -2.000
+  Mg2+   2.000
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_Uiso_or_equiv
+Mg   Mg2+   0.51960   0.55900   0.25000   0.00481
+Si   Si4+   0.50000   0.00000   0.50000   0.00342
+O1   O2-    0.10460   0.46790   0.25000   0.00519
+O2   O2-    0.19330   0.20030   0.55360   0.00494

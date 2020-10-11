@@ -1,0 +1,54 @@
+data_9000267
+_chemical_name_mineral 'Forsterite'
+loop_
+_publ_author_name
+'Baur W H'
+_journal_name_full "American Mineralogist"
+_journal_volume 57
+_journal_year 1972
+_journal_page_first 709
+_journal_page_last 731
+_publ_section_title
+;
+ Computer-simulated crystal structures of observed and hypothetical Mg2SiO4
+ polymorphs of low and high density
+;
+_chemical_formula_sum 'Si Mg2 O4'
+_cell_length_a 4.79
+_cell_length_b 10.19
+_cell_length_c 5.85
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 285.539
+_symmetry_space_group_name_H-M 'P b n m'
+loop_
+_symmetry_equiv_pos_as_xyz
+  'x,y,z'
+  'x,y,1/2-z'
+  '-x,-y,1/2+z'
+  '1/2+x,1/2-y,1/2+z'
+  '1/2-x,1/2+y,1/2-z'
+  '1/2-x,1/2+y,z'
+  '1/2+x,1/2-y,-z'
+  '-x,-y,-z'
+loop_
+_atom_type_symbol
+_atom_type_oxidation_number
+  Mg2+   2.000
+  Si4+   4.000
+  O2-   -2.000
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Si   Si4+   0.09450   0.40780   0.25000
+Mg1   Mg2+   0.00000   0.00000   0.00000
+Mg2   Mg2+   0.00560   0.26320   0.75000
+O1   O2-   0.24990   0.09070   0.75000
+O2   O2-   0.28320   0.05780   0.25000
+O3   O2-   0.23120   0.33700   0.47070
+

@@ -1,0 +1,85 @@
+#------------------------------------------------------------------------------
+#$Date: 2014-07-12 08:06:43 +0000 (Sat, 12 Jul 2014) $
+#$Revision: 120115 $
+#$URL: file:///home/coder/svn-repositories/cod/cif/9/00/92/9009217.cif $
+#------------------------------------------------------------------------------
+#
+# This file is available in the Crystallography Open Database (COD),
+# http://www.crystallography.net/. The original data for this entry
+# were provided the American Mineralogist Crystal Structure Database,
+# http://rruff.geo.arizona.edu/AMS/amcsd.php
+#
+# The file may be used within the scientific community so long as
+# proper attribution is given to the journal article from which the
+# data were obtained.
+#
+data_9009217
+loop_
+_publ_author_name
+'Murakami, M.'
+'Hirose, K.'
+'Kawamura, K.'
+'Sata, N.'
+'Ohishi, Y.'
+_publ_section_title
+;Post-perovskite phase transition in MgSiO3 Sample: P = 121 GPa, T = 300 K
+ Note: CaIrO3-type structure from ab initio calculations using observed cell
+ parameters
+;
+_journal_name_full               Science
+_journal_page_first              855
+_journal_page_last               858
+_journal_volume                  304
+_journal_year                    2004
+_chemical_formula_structural     MgSiO3
+_chemical_formula_sum            'Mg O3 Si'
+_space_group_IT_number           63
+_symmetry_space_group_name_Hall  '-C 2c 2'
+_symmetry_space_group_name_H-M   'C m c m'
+_cell_angle_alpha                90
+_cell_angle_beta                 90
+_cell_angle_gamma                90
+_cell_length_a                   2.456
+_cell_length_b                   8.042
+_cell_length_c                   6.093
+_cell_volume                     120.344
+_diffrn_ambient_pressure         1.21e+08
+_diffrn_ambient_temperature      300
+_exptl_crystal_density_diffrn    5.541
+_[local]_cod_chemical_formula_sum_orig 'Mg Si O3'
+_cod_database_code               9009217
+loop_
+_symmetry_equiv_pos_as_xyz
+x,y,z
+1/2+x,1/2+y,z
+x,-y,1/2+z
+1/2+x,1/2-y,1/2+z
+-x,y,1/2-z
+1/2-x,1/2+y,1/2-z
+-x,y,z
+1/2-x,1/2+y,z
+x,-y,-z
+1/2+x,1/2-y,-z
+x,y,1/2-z
+1/2+x,1/2+y,1/2-z
+-x,-y,1/2+z
+1/2-x,1/2-y,1/2+z
+-x,-y,-z
+1/2-x,1/2-y,-z
+loop_
+_atom_type_symbol
+_atom_type_oxidation_number
+  Si4+   4.000
+  O2-   -2.000
+  Mg2+   2.000
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Mg Mg2+ 0.00000 0.25300 0.25000
+Si Si4+ 0.00000 0.00000 0.00000
+O1 O2- 0.00000 0.92300 0.25000
+O2 O2- 0.00000 0.63100 0.43600
+_journal_paper_doi 10.1126/science.1095932

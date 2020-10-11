@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script src="jsmol/JSmol.min.js"></script>
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<script>
+/// <reference path="../../src/jmol.d.ts" />
+var myApplet;
+var callBacks = ['animFrame',
+    'appletReady',
+    'atomMoved',
+    'echo',
+    'eval',
+    'hover',
+    'loadStruct',
+    'measure',
+    'message',
+    'minimization',
+    'pick',
+    'resize',
+    'script',
+    'structureModified',
+    'sync'];
+
+        window.addEventListener('message', ev => {
+            // console.log(JSON.parse(JSON.stringify(ev.data)));
+            // if (ev.origin !== document.location.host) return;
+            handle(ev.data);
+        })
+
+        function handle(data) {
+            switch (data.type) {
+                case 'initApplet':
+                        // Add the requested callbacks
+                    var s = (data.payload.script) ? data.payload.script + '; ' : '';
+                    for (callBack in data.payload.cb) {
+                        if (!data.payload.cb.hasOwnProperty(callBack)) continue;
+                        if (callBack === 'ready') {
+                            data.payload.readyFunction = readyFunction;
+                            continue;
+                        }
+                        s += 'set ' + callBack + 'callback "' + callBack + 'Callback"; ';
+                        // The following does not work as expected. JSmol pickCallback
+                        // option looks broken
+                        /*
+                        data.payload[callBack + 'Callback'] = function () {
+                            console.log(arguments);
+                            returnMessage({
+                                type: callBack,
+                                payload: arguments
+                            });
+                        };
+                        */
+                    }
+                    if (s !== '') data.payload.script = s;
+                    Jmol.setDocument(0);
+                    myApplet =  Jmol.getApplet('myApplet', data.payload);
+                    $('body').append(Jmol.getAppletHtml(myApplet));
+                    // Jmol.script('javascript alert')
+                    //setJmol();
+                    break;
+                case 'script':
+                    const spt = '' + data.payload;
+                    Jmol.script(myApplet, spt);
+                    break;
+
+            }
+        }
+
+        function readyFunction () {
+            returnMessage({type: 'ready'})
+        }
+
+            // pickcallback return function.
+            // Note: atomIndex is an Integer object that evaluates to a standard
+            // js number when called. This prevents it to be transmitted as is
+            // with the postMessage method. The casting to number is compulsory.
+        function pickCallback (appletName, atomDescription, atomIndex) {
+            returnMessage({type: 'pick',
+            payload: [appletName, atomDescription, 0 + atomIndex]});
+        }
+
+        function messageCallback () {
+            returnMessage({type: 'message',
+            payload: arguments});
+        }
+
+        function returnMessage (opt) {
+            opt.source = 'jmolIframe';
+            window.parent.postMessage(opt, '*');
+        }
+
+
+        </script>
+<body >
+<script>
+
+
+    </script>
+</body>
+</html>

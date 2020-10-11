@@ -1,0 +1,52 @@
+data_9000586
+_chemical_name 'Albite'
+loop_
+_publ_author_name
+'Winter J K'
+'Ghose S'
+'Okamura F P'
+_journal_name_full "American Mineralogist"
+_journal_volume 62
+_journal_year 1977
+_journal_page_first 921
+_journal_page_last 931
+_publ_section_title
+;
+ A high-temperature study of the thermal expansion and the anisotropy of the
+ sodium atom in low albite
+ T = 970 deg C
+ Note: this sample of feldspar is from Tiburon, Marin County, California, USA
+;
+_chemical_formula_sum 'Na Al Si3 O8'
+_cell_length_a 8.277
+_cell_length_b 12.860
+_cell_length_c 7.181
+_cell_angle_alpha 93.3
+_cell_angle_beta 116.2
+_cell_angle_gamma 87.6
+_cell_volume 684.577
+_symmetry_space_group_name_H-M 'C -1'
+loop_
+_symmetry_equiv_pos_as_xyz
+  'x,y,z'
+  '1/2+x,1/2+y,z'
+  '-x,-y,-z'
+  '1/2-x,1/2-y,-z'
+loop_
+_atom_site_label
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Na   0.27820   0.98830   0.14680
+Al1o   0.00980   0.17470   0.21130
+Si1m   0.00580   0.82000   0.23700
+Si2o   0.69970   0.11350   0.32520
+Si2m   0.69110   0.88300   0.35960
+Oa1   0.00450   0.13710   0.97170
+Oa2   0.60780   0.00010   0.28410
+Obo   0.81550   0.12230   0.20120
+Obm   0.82520   0.85310   0.25490
+Oco   0.02250   0.30800   0.26790
+Ocm   0.02980   0.69470   0.24660
+Odo   0.20140   0.11360   0.39340
+Odm   0.17950   0.87060   0.42800

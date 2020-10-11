@@ -1,0 +1,99 @@
+#------------------------------------------------------------------------------
+#$Date: 2012-02-28 15:44:07 +0000 (Tue, 28 Feb 2012) $
+#$Revision: 35913 $
+#$URL: file:///home/coder/svn-repositories/cod/cif/9/00/53/9005341.cif $
+#------------------------------------------------------------------------------
+#
+# This file is available in the Crystallography Open Database (COD),
+# http://www.crystallography.net/. The original data for this entry
+# were provided the American Mineralogist Crystal Structure Database,
+# http://rruff.geo.arizona.edu/AMS/amcsd.php
+#
+# The file may be used within the scientific community so long as
+# proper attribution is given to the journal article from which the
+# data were obtained.
+#
+data_9005341
+loop_
+_publ_author_name
+'Koch-Muller M'
+'Kahlenberg, V.'
+'Bubenick, W.'
+'Gottschalk, M.'
+_publ_section_title
+;
+ Crystal-structure refinement of synthetic Fe- and Mg-staurolite by
+ Rietveld analysis of X-ray powder-diffraction data
+ Sample: Mg-staurolite synthesized at 25 kbar
+;
+_journal_name_full               'European Journal of Mineralogy'
+_journal_page_first              453
+_journal_page_last               460
+_journal_volume                  10
+_journal_year                    1998
+_chemical_formula_sum            'Al4.39 Mg0.9 O12 Si1.96'
+_chemical_name_mineral           Staurolite
+_space_group_IT_number           63
+_symmetry_space_group_name_Hall  '-C 2c 2c'
+_symmetry_space_group_name_H-M   'C c m m'
+_cell_angle_alpha                90
+_cell_angle_beta                 90
+_cell_angle_gamma                90
+_cell_length_a                   7.8791
+_cell_length_b                   16.5425
+_cell_length_c                   5.6329
+_cell_volume                     734.192
+_exptl_crystal_density_diffrn    3.504
+_exptl_crystal_pressure_history  'synthesized at 25 kbar'
+_[local]_cod_chemical_formula_sum_orig 'Mg.9 Al4.39 Si1.96 O12'
+_cod_database_code               9005341
+_amcsd_database_code             AMCSD#0006668
+loop_
+_symmetry_equiv_pos_as_xyz
+x,y,z
+1/2+x,1/2+y,z
+-x,y,1/2+z
+1/2-x,1/2+y,1/2+z
+x,-y,1/2-z
+1/2+x,1/2-y,1/2-z
+x,-y,z
+1/2+x,1/2-y,z
+-x,y,-z
+1/2-x,1/2+y,-z
+x,y,1/2-z
+1/2+x,1/2+y,1/2-z
+-x,-y,1/2+z
+1/2-x,1/2-y,1/2+z
+-x,-y,-z
+1/2-x,1/2-y,-z
+loop_
+_atom_type_symbol
+_atom_type_oxidation_number
+Mg2+    2.000
+Al3+   3.000
+Si4+   4.000
+O2-   -2.000
+
+loop_
+_atom_site_label
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+_atom_site_U_iso_or_equiv
+_atom_site_type_symbol
+MgT2 0.38770 0.00000 0.25000 0.53000 0.01550 Mg2+
+AlT2 0.38770 0.00000 0.25000 0.04000 0.01550 Al3+
+SiT1 0.13440 0.16720 0.25000 1.00000 0.00350 Si4+
+AlM1 0.50000 0.17370 0.00000 0.97000 0.00500 Al3+
+MgM1 0.50000 0.17370 0.00000 0.03000 0.00500 Mg2+
+AlM2 0.26310 0.41010 0.25000 0.97000 0.00600 Al3+
+MgM2 0.26310 0.41010 0.25000 0.03000 0.00600 Mg2+
+AlM3 0.00000 0.00000 0.00000 0.43000 0.00570 Al3+
+MgM3 0.00000 0.00000 0.00000 0.03000 0.00570 Mg2+
+MgM4 0.50000 0.00000 0.00000 0.22000 0.00830 Mg2+
+O1 0.23610 0.00000 0.97700 1.00000 0.00860 O2-
+O2 0.25590 0.16270 0.01160 1.00000 0.00440 O2-
+O3 0.00430 0.08560 0.25000 1.00000 0.00680 O2-
+O4 0.02050 0.25080 0.25000 1.00000 0.00470 O2-
+O5 0.52530 0.09340 0.25000 1.00000 0.00470 O2-
