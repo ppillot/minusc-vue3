@@ -17,7 +17,6 @@ import {
   TAtomCountSet,
   AtomicSymbol
 } from "../utils/types";
-import { MinUScFile } from "../utils/files";
 import { useStore } from "../store/state";
 
 
