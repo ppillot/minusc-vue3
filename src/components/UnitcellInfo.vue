@@ -1,11 +1,11 @@
 <template>
   <div class="info" :style="visibility">
-    <span class="title">{{ name }}</span>
+    <div class="title">{{ name }}</div>
     <ul>
       <li v-for="l in lengths" :key="l[0]">
         {{ l[0] }} = {{ precision(l[1], 1) }} pm
       </li>
-      <li v-for="a in angles" :key="a[0]">{{ a[0] }} = {{ a[1] }}°</li>
+      <li v-for="a in angles" :key="a[0]">{{ a[0] }}&#x302; = {{ a[1] }}°</li>
       <li v-if="formulaIsOn">Compteur : {{ counter }}</li>
     </ul>
   </div>
@@ -13,34 +13,31 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState } from "vuex";
-import { UnitcellProp } from "../utils/types";
-import { useStore } from "../store/store";
-
-const store = useStore();
+import { mapState } from "pinia";
+import { useStore } from "../store/state";
 
 export default defineComponent({
   name: "UnitcellInfo",
   computed: {
-    ...mapState(["name", "counter", "formulaIsOn"]),
-    lengths() {
-      const prop = store.state.unitcellProp as UnitcellProp;
+    ...mapState(useStore, ["name", "counter", "formulaIsOn", "unitcellProp"]),
+    lengths(): [string, number][] {
+      const prop = this.unitcellProp;
       return [
         ["a", prop.a * 100],
         ["b", prop.b * 100],
         ["c", prop.c * 100]
       ];
     },
-    angles() {
-      const prop = store.state.unitcellProp as UnitcellProp;
+    angles(): [string, number][] {
+      const prop = this.unitcellProp;
       return [
         ["α", prop.alpha],
         ["β", prop.beta],
         ["γ", prop.gamma]
       ];
     },
-    visibility() {
-      return store.state.unitcellProp.volume === 0
+    visibility(): {visibility: 'hidden'|'visible'} {
+      return this.unitcellProp.volume === 0
         ? { visibility: "hidden" }
         : { visibility: "visible" };
     }
@@ -55,6 +52,13 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
 .info {
   position: absolute;
   top: 4px;

@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import JmolWrapper from "../utils/jmol.wrapper";
-import { mapState } from "vuex";
+import { mapActions, mapWritableState } from "pinia";
 import {
   AtomDisplay,
   BondDisplay,
@@ -18,17 +18,15 @@ import {
   AtomicSymbol
 } from "../utils/types";
 import { MinUScFile } from "../utils/files";
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
+import { useStore } from "../store/state";
 
-const store = useStore();
 
 let jmolObj: JmolWrapper;
 
 export default defineComponent({
   name: "ViewportJsmol",
   computed: {
-    ...mapState([
+    ...mapWritableState(useStore, [
       "fileName",
       "solidType",
       "atomDisplay",
@@ -42,14 +40,16 @@ export default defineComponent({
       "formulaIsOn",
       "formulaDisplay",
       "formulaDisplayPlanes",
-      "counter"
+      "counter",
+      "unitcell",
+      "unitcellProp",
+      'initScript',
+      'atoms',
+      "atomsSetsCounts",
+      "atomsSetsOccupancies"
     ]),
     unitcellScript: function() {
-      const u = store.state.unitcell as {
-        a: number;
-        b: number;
-        c: number;
-      };
+      const u = this.unitcell;
       const cells = [];
       for (let x = 0; x < u.a; x++) {
         if (u.a === 1) x = 1;
@@ -120,8 +120,8 @@ export default defineComponent({
     fileName(curr: string) {
       jmolObj
         .scriptAsync(
-          `load ../cif/${curr} {3,3,3};
-      ${store.state.initScript};
+          `load ../cif/${ curr } {3,3,3};
+      ${ this.initScript };
       restrict none;
       select all; color cpk; spacefill 20%; wireframe 0.15;
       color selectionHalos none;
@@ -160,8 +160,8 @@ export default defineComponent({
             };
           });
 
-          store.commit(MutationTypes.SET_ATOMS, atoms);
-          store.commit(MutationTypes.LOADING_FINISHED, undefined);
+          this.atoms = atoms;
+          this.isLoading = false;
 
           /* get unitcell parameters
            * String of the form: a=8.0633, b=8.0633, c=8.0633, alpha=90, beta=90,
@@ -182,17 +182,14 @@ export default defineComponent({
             )     end capture value
           */
           const propReg = /(\w+)=(\d+(?:\.\d+)?)/g;
-          const unitcell: Partial<UnitcellProp> = {};
+          const unitcell = {} as UnitcellProp;
           let capture: RegExpExecArray | null;
           while ((capture = propReg.exec(r)) !== null) {
             const prop = capture[1] as keyof UnitcellProp;
             const val = capture[2];
             unitcell[prop] = Number.parseFloat(val);
           }
-          store.commit(
-            MutationTypes.SET_UNITCELL_PROP,
-            (unitcell as unknown) as UnitcellProp
-          );
+          this.unitcellProp = unitcell;
 
           // set the predefined sets
           jmolObj.scriptAsync(this.defineSetsScript).then(() => {
@@ -204,10 +201,12 @@ export default defineComponent({
             const getTotalsSpt = `'[` + jsonPieces.join(`,`) + `]'`;
             const totalsJSON = jmolObj.getValue(getTotalsSpt);
             const atomCountsPerSet: TAtomCountSet[] = JSON.parse(totalsJSON);
-            store.commit(MutationTypes.SET_ATOM_SETS_COUNTS, atomCountsPerSet);
+            this.atomsSetsCounts = atomCountsPerSet;
+
             // When occupancies are shared, we need to evaluate the occupancy
             // for each position in the unitcell so that the computation is
             // correct
+
             const atomsPartialOcc = atoms.reduce((acc, atom, idx) => {
               if (atom.occupancy < 1) acc.push(idx);
               return acc;
@@ -241,24 +240,21 @@ export default defineComponent({
 
               // this state property is set only when there are some partial
               // occupancies. Must match code that computes total values.
-              store.commit(
-                MutationTypes.SET_ATOM_SETS_OCCUPANCIES,
-                occupancies
-              );
+              this.atomsSetsOccupancies = occupancies;
             }
           });
         });
     },
     atomDisplay(curr: AtomDisplay) {
-      if (store.state.isLoading) return;
+      if (this.isLoading) return;
 
       let spt = "";
       switch (curr) {
         case "sphere":
           spt =
-            store.state.solidType === "ionic"
+            this.solidType === "ionic"
               ? "cpk ionic"
-              : store.state.solidType === "metal"
+              : this.solidType === "metal"
               ? "cpk"
               : "cpk";
           break;
@@ -272,7 +268,7 @@ export default defineComponent({
       jmolObj.script(spt);
     },
     bondDisplay(curr: BondDisplay) {
-      if (store.state.isLoading) return;
+      if (this.isLoading) return;
 
       let spt = "";
       switch (curr) {
@@ -289,7 +285,7 @@ export default defineComponent({
       jmolObj.script(spt);
     },
     hbondDisplay(curr: HBondDisplay) {
-      if (store.state.isLoading) return;
+      if (this.isLoading) return;
 
       let spt = "hbonds off";
       if (curr === "hbond") {
@@ -298,7 +294,7 @@ export default defineComponent({
       jmolObj.script(spt);
     },
     polyhedraDisplay(curr: PolyhedraDisplay) {
-      if (store.state.isLoading) return;
+      if (this.isLoading) return;
 
       let spt = "";
       switch (curr) {
@@ -347,11 +343,11 @@ export default defineComponent({
       jmolObj.script(spt);
     },
     unitcellScript() {
-      if (store.state.isLoading || store.state.formulaIsOn) return;
+      if (this.isLoading || this.formulaIsOn) return;
       jmolObj.script(this.unitcellScript);
     },
     formulaIsOn(cur: boolean) {
-      if (store.state.isLoading) return;
+      if (this.isLoading) return;
       if (cur) {
         jmolObj.script("display cell={1 1 1}; zoomto {displayed} 200;");
       } else {
@@ -379,7 +375,7 @@ export default defineComponent({
       jmolObj.script(spt);
     },
     formulaDisplayPlanes(cur: FormulaPlaneView) {
-      if (store.state.isLoading) return;
+      if (this.isLoading) return;
       let spt = "";
       switch (cur) {
         case "none":
@@ -425,13 +421,14 @@ export default defineComponent({
     }
   },
   methods: {
+    ...mapActions(useStore, ['changeFile']),
     /*
     in formula mode, picking an atom triggers a counter that is incremented after
     each click on a new atom and decremented after each click on an atome that
     is already selected
     */
     pick(applet: string, descr: string) {
-      if (!store.state.formulaIsOn) return;
+      if (!this.formulaIsOn) return;
 
       const regAtomno = /#(\d+)/;
       const findAtomno = regAtomno.exec(descr);
@@ -448,7 +445,7 @@ export default defineComponent({
         `;
         jmolObj.script(spt);
         const count = jmolObj.getValue("{halos!=0}.count");
-        store.commit(MutationTypes.CHANGE_COUNTER, count);
+        this.counter = count;
       }
     }
   },
@@ -456,10 +453,10 @@ export default defineComponent({
     jmolObj = new JmolWrapper(this.$el, {
       color: "#263238",
       readyFunction: () => {
-        store.commit(MutationTypes.CHANGE_FILE, {
+        this.changeFile({
           name: "Quartz",
           file: "sio2.cif"
-        } as MinUScFile);
+        });
       },
       pickCallback: this.pick
     });

@@ -21,16 +21,19 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { FormulaPlaneView } from "../utils/types";
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
-
-const store = useStore();
+import { useStore } from "../store/state";
+import { mapWritableState } from "pinia";
 
 export default defineComponent({
   name: "FormulaPlanes",
+  computed: {
+    ...mapWritableState(useStore, ['formulaDisplayPlanes'])
+  },
   methods: {
     planeView(type: FormulaPlaneView) {
-      store.commit(MutationTypes.PLANE_VIEW, type);
+      this.formulaDisplayPlanes = type === this.formulaDisplayPlanes
+        ? 'none'  // disable if already set
+        : type;
     }
   }
 });

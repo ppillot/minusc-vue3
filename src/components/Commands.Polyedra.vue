@@ -29,20 +29,21 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { PolyhedraDisplay } from "../utils/types";
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
-
-const store = useStore();
+import type { PolyhedraDisplay } from "../utils/types";
+import { useStore } from "../store/state";
+import { mapWritableState } from "pinia";
 
 export default defineComponent({
   name: "CommandsPolyedra",
   data() {
     return {};
   },
+  computed: {
+    ...mapWritableState(useStore, ['polyhedraDisplay'])
+  },
   methods: {
     displayPoly(type: PolyhedraDisplay) {
-      store.commit(MutationTypes.POLYHEDRA_DISPLAYED, type);
+      this.polyhedraDisplay = type;
     }
   }
 });

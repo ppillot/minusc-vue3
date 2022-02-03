@@ -30,10 +30,8 @@ import { defineComponent } from "vue";
 import TabFiles from "./TabFiles.vue";
 import TabCommands from "./TabCommands.vue";
 import TabFormula from "./TabFormula.vue";
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
-
-const store = useStore();
+import { useStore } from "../store/state";
+import { mapWritableState } from "pinia";
 
 export default defineComponent({
   name: "Controls",
@@ -47,13 +45,16 @@ export default defineComponent({
       activeTab: "commands"
     };
   },
+  computed: {
+    ...mapWritableState(useStore, ['formulaIsOn'])
+  },
   methods: {
     activate(ev: MouseEvent) {
       const tabType = (ev.target as HTMLElement).dataset.tab;
       if (!tabType) return;
       this.activeTab = tabType;
       if (tabType === "formula") {
-        store.commit(MutationTypes.SET_MODE, "formula");
+        this.formulaIsOn = true;
       }
     }
   }

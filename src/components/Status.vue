@@ -35,29 +35,23 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState } from "vuex";
+import { mapWritableState } from "pinia";
 import { atomName } from "../utils/atoms";
 import { AtomicSymbol, AtomProps } from "../utils/types";
 
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
+import { useStore } from "../store/state";
 
-const store = useStore();
 
 export default defineComponent({
   name: "Status",
   computed: {
-    ...mapState(["name", "unitcell"]),
+    ...mapWritableState(useStore, ["name", "unitcell", "atoms"]),
     a: {
       get: function(): number {
         return this.unitcell.a;
       },
       set: function(newVal: string) {
-        store.commit(MutationTypes.SET_UNITCELLS, [
-          parseInt(newVal),
-          this.unitcell.b,
-          this.unitcell.c
-        ]);
+        this.unitcell.a = parseInt(newVal);
       }
     },
     b: {
@@ -65,11 +59,7 @@ export default defineComponent({
         return this.unitcell.b;
       },
       set: function(newVal: string) {
-        store.commit(MutationTypes.SET_UNITCELLS, [
-          this.unitcell.a,
-          parseInt(newVal),
-          this.unitcell.c
-        ]);
+        this.unitcell.b = parseInt(newVal);
       }
     },
     c: {
@@ -77,17 +67,10 @@ export default defineComponent({
         return this.unitcell.c;
       },
       set: function(newVal: string) {
-        store.commit(MutationTypes.SET_UNITCELLS, [
-          this.unitcell.a,
-          this.unitcell.b,
-          parseInt(newVal)
-        ]);
+        this.unitcell.c = parseInt(newVal);
       }
     },
 
-    atoms: function(): AtomProps[] {
-      return store.state.atoms as AtomProps[];
-    },
     listAtoms(): {
       symbol: AtomicSymbol;
       charge: string;

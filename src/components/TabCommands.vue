@@ -13,7 +13,9 @@ import CommandsAtom from "./Commands.Atom.vue";
 import CommandsBond from "./Commands.Bond.vue";
 import CommandsPolyedra from "./Commands.Polyedra.vue";
 import CommandsToggles from "./Commands.Toggles.vue";
-import { mapState } from "vuex";
+import { mapState } from "pinia";
+import { useStore } from "../store/state";
+
 
 export default defineComponent({
   name: "TabCommands",
@@ -27,7 +29,7 @@ export default defineComponent({
     return {};
   },
   computed: {
-    ...mapState(["solidType"])
+    ...mapState(useStore, ["solidType"])
   },
   methods: {}
 });

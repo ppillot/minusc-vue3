@@ -1,5 +1,5 @@
 <template>
-  <div v-if="atoms[0] && atoms[0].symbol !== ''">
+  <div v-if="atoms[0]?.symbol !== ''">
     <div class="instructions"></div>
     <table>
       <thead>
@@ -67,17 +67,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import {
+import type {
   AtomicSymbol,
   AtomProps,
   FormulaRestrictedView,
   TAtomCountSet
 } from "../utils/types";
 import { molarMass } from "../utils/atoms";
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
-
-const store = useStore();
+import { useStore } from "../store/state";
+import { mapWritableState } from "pinia";
 
 interface UnitcellPart {
   interior: string;
@@ -113,20 +111,19 @@ export default defineComponent({
     };
   },
   computed: {
-    atoms: function() {
-      return store.state.atoms;
-    },
-    counts: function() {
-      return store.state.atomsSetsCounts;
-    },
-    occupancies: function() {
-      return store.state.atomsSetsOccupancies;
-    },
+    ...mapWritableState(useStore, {
+      atoms: 'atoms',
+      counts: 'atomsSetsCounts',
+      occupancies: 'atomsSetsOccupancies',
+      counter: 'counter',
+      unitcellProp: 'unitcellProp',
+      formulaDisplay: 'formulaDisplay'
+    }),
     isInvalid(): UnitcellValidity[] {
       // there might be a transient state, after atoms has been set and before
       // atomsSetsCounts is, when there is a discrepancy between both tables
       // length. In that case, the following code sets everything to false
-      if (this.table.length !== store.state.atomsSetsCounts.length) {
+      if (this.table.length !== this.counts.length) {
         return this.table.map(() => {
           return {
             interior: false,
@@ -137,7 +134,7 @@ export default defineComponent({
         });
       }
 
-      return store.state.atomsSetsCounts.map(
+      return this.counts.map(
         (aCount: TAtomCountSet, i: number) => {
           if (this.table[i] === undefined) {
             return {
@@ -218,7 +215,7 @@ export default defineComponent({
         },
         0
       );
-      return m / (store.state.unitcellProp.volume * avogadroNumber * 10e-25);
+      return m / (this.unitcellProp.volume * avogadroNumber * 10e-25);
     },
     compacity(): number {
       const v = this.amount.reduce(
@@ -236,7 +233,7 @@ export default defineComponent({
         },
         0
       );
-      return (v / store.state.unitcellProp.volume) * 100;
+      return (v / this.unitcellProp.volume) * 100;
     },
     hydration: function(): number {
       const ixH = this.atoms.findIndex((atom: AtomProps) => {
@@ -265,12 +262,12 @@ export default defineComponent({
   },
   methods: {
     restrictView(type: FormulaRestrictedView) {
-      store.commit(MutationTypes.RESTRICT_VIEW, type);
+      this.formulaDisplay = type;
       // reset counter after a change in focused cell
-      store.commit(MutationTypes.CHANGE_COUNTER, 0);
+      this.counter = 0;
     },
     autoFill() {
-      this.table = store.state.atomsSetsCounts.map(
+      this.table = this.counts.map(
         (setsCounts: TAtomCountSet) => {
           return {
             interior: setsCounts.I.toString(),

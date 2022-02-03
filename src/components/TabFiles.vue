@@ -18,10 +18,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Files from "../utils/files";
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
-
-const store = useStore();
+import { useStore } from "../store/state";
+import { mapActions } from "pinia";
 
 export default defineComponent({
   name: "TabFiles",
@@ -63,8 +61,9 @@ export default defineComponent({
     }
   },
   methods: {
+    ...mapActions(useStore, ['changeFile']),
     loadFile: function(id: number) {
-      store.commit(MutationTypes.CHANGE_FILE, Files[id]);
+      this.changeFile(Files[id]);
     }
   }
 });

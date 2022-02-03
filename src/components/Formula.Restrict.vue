@@ -30,23 +30,21 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { FormulaRestrictedView } from "../utils/types";
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
-
-const store = useStore();
+import type { FormulaRestrictedView } from "../utils/types";
+import { useStore } from "../store/state";
+import { mapWritableState } from "pinia";
 
 export default defineComponent({
   name: "FormulaRestrict",
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    ...mapWritableState(useStore, ['formulaDisplay'])
+  },
   methods: {
     restrictView(type: FormulaRestrictedView["part"]) {
-      store.commit(MutationTypes.RESTRICT_VIEW, {
-        part: type
-      } as FormulaRestrictedView);
+      this.formulaDisplay = { part: type };
     }
   }
 });

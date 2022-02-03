@@ -23,21 +23,22 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { AtomDisplay } from "../utils/types";
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
+import type { AtomDisplay } from "../utils/types";
+import { useStore } from "../store/state";
+import { mapWritableState } from "pinia";
 
-const store = useStore();
 
 export default defineComponent({
   name: "CommandsAtom",
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    ...mapWritableState(useStore, ['atomDisplay'])
+  },
   methods: {
     displayAtom(type: AtomDisplay) {
-      store.commit(MutationTypes.ATOM_DISPLAYED, type);
+      this.atomDisplay = type;
     }
   }
 });

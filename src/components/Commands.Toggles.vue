@@ -35,31 +35,32 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
-
-const store = useStore();
+import { useStore } from "../store/state";
+import { mapStores } from "pinia";
 
 export default defineComponent({
   name: "CommandsToggles",
   data() {
     return {};
   },
+  computed: {
+    ...mapStores(useStore)
+  },
   methods: {
     toggleAxis() {
-      store.commit(MutationTypes.TOGGLE_AXIS, undefined);
+      this.stateStore.showAxis = !this.stateStore.showAxis;
     },
     toggleCharges() {
-      store.commit(MutationTypes.TOGGLE_CHARGES, undefined);
+      this.stateStore.showCharges = !this.stateStore.showCharges;
     },
     toggleScripts() {
-      store.commit(MutationTypes.TOGGLE_SCRIPTS, undefined);
+       this.stateStore.toggleScripts();
     },
     toggleBgColor() {
-      store.commit(MutationTypes.TOGGLE_BGCOLOR, undefined);
+      this.stateStore.backgroundIsDark = !this.stateStore.backgroundIsDark;
     },
     toggleSettings() {
-      store.commit(MutationTypes.TOGGLE_SETTINGS, undefined);
+      this.stateStore.toggleSettings();
     }
   }
 });

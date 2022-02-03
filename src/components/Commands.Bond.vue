@@ -33,12 +33,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { BondDisplay, HBondDisplay } from "../utils/types";
-import { mapState } from "vuex";
-import { useStore } from "../store/store";
-import { MutationTypes } from "../store/mutations-types";
-
-const store = useStore();
+import type { BondDisplay, HBondDisplay } from "../utils/types";
+import { mapWritableState } from "pinia";
+import { useStore } from "../store/state";
 
 export default defineComponent({
   name: "CommandsBond",
@@ -46,14 +43,14 @@ export default defineComponent({
     return {};
   },
   computed: {
-    ...mapState(["solidType"])
+    ...mapWritableState(useStore, ['bondDisplay', 'hbondDisplay', "solidType"])
   },
   methods: {
     displayBond(type: BondDisplay) {
-      store.commit(MutationTypes.BOND_DISPLAYED, type);
+      this.bondDisplay = type;
     },
     displayHBond(type: HBondDisplay) {
-      store.commit(MutationTypes.HBOND_DISPLAYED, type);
+      this.hbondDisplay = type;
     }
   }
 });
