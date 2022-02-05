@@ -48,14 +48,16 @@ export default defineComponent({
 <style lang="scss">
 .command__button__set {
   fieldset {
-    border: 1px solid #cfd8dc;
+    border: 1px solid #0c1c23;
     border-radius: 2px;
-    padding: 0 0.7rem;
-    font-size: 0.9rem;
+    padding: 0.7rem;
+    font-size: 1rem;
+    margin: 1em;
   }
   .button {
     display: inline-block;
-    font-size: 11px;
+    font-size: 12px;
+    font-weight: 500;
     cursor: pointer;
     text-align: center;
     margin-right: 10px;
@@ -64,7 +66,7 @@ export default defineComponent({
       width: 40px;
       border: none;
       border-radius: 3px;
-      box-shadow: 1px 1px 3px #aaa;
+      //box-shadow: 1px 1px 3px #aaa;
     }
   }
 }

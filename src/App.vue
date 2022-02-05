@@ -32,8 +32,9 @@ body {
   font-family: system-ui;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: whitesmoke;
   display: flex;
   height: 100%;
+  background-color: #0c1c24;
 }
 </style>

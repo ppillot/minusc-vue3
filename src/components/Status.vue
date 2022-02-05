@@ -2,20 +2,20 @@
   <div class="status">
     <span class="title">{{ name }}</span>
     <div class="unitcell__control">
-      Afficher mailles: x
-      <select v-model="a">
+      Afficher mailles: a
+      &times;<select v-model="a">
         <option>1</option>
         <option>2</option>
         <option>3</option>
       </select>
-      y
-      <select v-model="b">
+      b
+      &times;<select v-model="b">
         <option>1</option>
         <option>2</option>
         <option>3</option>
       </select>
-      z
-      <select v-model="c">
+      c
+      &times;<select v-model="c">
         <option>1</option>
         <option>2</option>
         <option>3</option>
@@ -105,7 +105,7 @@ export default defineComponent({
 }
 .title {
   font-size: 1.6rem;
-  font-weight: bold;
+  font-weight: 500;
 }
 .atom {
   font-weight: bold;
@@ -117,6 +117,10 @@ sup {
 }
 .unitcell__control {
   float: right;
-  max-width: 300px;
+  max-width: 350px;
+  select {
+    margin-right: 0.8rem;
+    margin-left: 2px;
+  }
 }
 </style>

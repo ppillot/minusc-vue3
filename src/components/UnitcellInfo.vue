@@ -55,14 +55,14 @@ export default defineComponent({
 
 .title {
   font-size: 1.5rem;
-  font-weight: 300;
+  font-weight: 500;
   margin-bottom: 0.5rem;
 }
 
 .info {
   position: absolute;
-  top: 4px;
-  left: 6px;
+  top: 15px;
+  left: 15px;
   width: 140px;
   background: rgba(85, 99, 105, 0.4);
   color: white;

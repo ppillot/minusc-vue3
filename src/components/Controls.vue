@@ -68,36 +68,33 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   overflow: auto;
+  border-radius: 5px;
+  padding-top: 5px;
 }
 ul.tabs {
   flex: 0 0;
   margin: 0;
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: row;
   li {
-    display: inline-block;
-    padding: 0.2rem 0.5rem;
-    border-width: 0 0 1px 0;
-    border-color: #ced8dc;
-    border-style: solid;
-    margin: 0 0.4rem -1px 0;
-    border-radius: 2px 2px 0 0;
-    background: #eaeff1;
+    flex: 1 1 auto;
+    text-align: center;
+    border-radius: 4px 4px 0 0;
+    color: white;
+    line-height: 2.4em;
     cursor: pointer;
     &.active {
-      border-bottom-color: white;
-      background: white;
-      color: dodgerblue;
-      opacity: 0.99; // this overlays this div over the tab shadow
+      background: #39464c;
+      font-weight: 500;
     }
   }
 }
 .tab__content {
   flex: 1 1;
-  background: white;
-  padding: 0.4rem;
-  border-radius: 2px 2px 0 0;
-  box-shadow: -2px 0 3px #999;
+  background: #39464c;
+  border-radius: 0 0 4px 4px;
   & > div {
     display: none;
     &.active {

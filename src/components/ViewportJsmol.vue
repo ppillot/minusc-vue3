@@ -328,7 +328,7 @@ export default defineComponent({
       jmolObj.script(spt);
     },
     backgroundIsDark(cur: boolean) {
-      const spt = cur ? "background [x263238]" : "background white";
+      const spt = cur ? "background [x0c1c24]" : "background white";
       jmolObj.script(spt);
     },
     showAxis(cur: boolean) {
@@ -467,5 +467,13 @@ export default defineComponent({
 .jsmol {
   background: #888;
   flex: 1 1;
+  margin: 0.5em;
+  border-radius: 5px;
+}
+</style>
+
+<style lang="css">
+.jsmol iframe {
+  border-radius: 5px
 }
 </style>

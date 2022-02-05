@@ -24,7 +24,6 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .viewport {
-  background: #263238;
   flex: 1 1;
   display: flex;
   flex-direction: column;

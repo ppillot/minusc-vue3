@@ -74,18 +74,31 @@ export default defineComponent({
 .container {
   flex: 1 1;
 }
+
+.filter__container {
+  text-align: center;
+  input {
+    line-height: 2.4em;
+    border-radius: 50px;
+    width: calc(100% - 2em);
+    margin: 0.8em 0;
+    background: #263238;
+    border: none;
+  }
+}
+
 .list {
   margin: 0;
   padding: 0;
   width: 100%;
-  border: 1px solid #eceff1;
+  border-top: 1px solid #0c1c24;
   li {
-    padding: 0.4rem 0.4rem;
+    padding: 0.4rem 0.8rem;
     cursor: pointer;
-    border-bottom: 1px solid #eceff1;
+    border-bottom: 1px solid #0c1c24;
+    line-height: 2em;
     &:hover {
-      background: rgb(241, 245, 247);
-      color: #01579b;
+      background: #535e63;
     }
   }
 }
